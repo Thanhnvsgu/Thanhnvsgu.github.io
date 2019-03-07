@@ -27,8 +27,8 @@ socket.on('Userdatontai', () => alert('User đã tồn tại'));
 
 function openStream(){
     const config = {
-        audio: false,
-        video: true
+        "audio": true,
+        "video": true
     };
     return navigator.mediaDevices.getUserMedia(config);
 }
@@ -42,7 +42,7 @@ function playStream(idVideoTag, stream){
 
 // openStream().then(stream => playStream('localStream',stream));
 
-var peer = new Peer({ key: 'lwjd5qra8257b9' });
+var peer = new Peer({ key: 'peerjs', host:'streamchat6969.herokuapp.com/',secure:true, port: 443 });
 peer.on('open', id => {
     $("#my-peer").append(id);
     $("#btnJoin").click(() => {
