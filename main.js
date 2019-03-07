@@ -42,7 +42,7 @@ function playStream(idVideoTag, stream){
 
 // openStream().then(stream => playStream('localStream',stream));
 
-var peer = new Peer({ key: 'peerjs', host:'streamchat6969.herokuapp.com/',secure:true, port: 443 });
+var peer = new Peer({ key: 'lwjd5qra8257b9' });
 peer.on('open', id => {
     $("#my-peer").append(id);
     $("#btnJoin").click(() => {
