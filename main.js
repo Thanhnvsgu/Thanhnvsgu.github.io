@@ -1,6 +1,6 @@
 // import { connect } from "net";
 
-const socket = io('http://localhost:3000')
+const socket = io('https://streamchat6969.herokuapp.com/')
 
 $("#video").hide();
 
