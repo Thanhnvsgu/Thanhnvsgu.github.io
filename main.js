@@ -156,7 +156,7 @@ peer.on('open', id => {
 function openStream()  {
     const config = {
         video:true,
-        audio:false
+        audio:true
     }
     return navigator.mediaDevices.getUserMedia(config);
 } 
