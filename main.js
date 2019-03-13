@@ -16,7 +16,7 @@ socket.on('List_online', list =>{
 socket.on('Turn_off', user =>{
     console.log(user);
     $(`#li_${user.id}`).remove(); 
-    $(`div_${user.id}`).remove();
+    $(`#div_${user.id}`).remove();
     $.notify(`${user.name} đã offline`);
 });
 
