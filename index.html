@@ -1,37 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Thanh Chat Channel</title>
+<html>
+
+<head>
+        <title>ThanhEtn Chat Club</title>
         <script src="jquery.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/peerjs@0.3.20/dist/peer.min.js"></script>
         <script src="socket.io.js"></script>
-    </head>
-    <body>
+</head>
 
-        <h3 id="my-peer"> Id:  </h3>
-        <h3> Danh sách user online: </h3>
-        <ul id="uluser">
-        </ul>
-        <div id="video">
-            <div id="videoclient">
-                    <!-- <video id="localStream" width="300" controls></video> -->
-                    <!-- <video id="remoteStream" width="300" controls></video> -->
-            </div>
-                
-                <br /><br />
-                <input type="text" placeholder="Call Id" id="remoteId"/>
-                <button id="btnCall"> Start </button>
-                <br /><br />
-                <div>
-                    <button id="btnout"> Ngắt kết nối </button>
-                   
+<body>
+        <div class="col-lg-12" style="background-color: black">
+                <div class="col-lg-6"><h5 id="my-peer" style="font-weight: bold;color: white"> Id của tôi: </h3></div>
+                <div class="col-lg-6"><h5 id="hello_user" style="text-align: right;font-weight: bold; color:gold"> </h5></div>        
+        </div>
+        <div class="panel panel-heading col-lg-12">
+
+                <div class="panel-body">
+                        <div class="col-lg-12">
+                                <h2><b>PHÒNG CHAT</b></h2>
+                        </div>
+                        <div class="col-lg-6"> Hãy cùng nhau gặp gỡ và chia sẻ. </div>
+                        <div class="col-lg-6" style="text-align: right; font-weight: bold">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#modal_list"
+                                        id="btnlist"> Danh sách online </button>
+                                <span id="online_user"> Số lượng người online: </span>
+                        </div>
                 </div>
         </div>
-        <div id="control">
-                <input type="text" placeholder="UserName" id="userId"/>
-                <button id="btnJoin"> Join </button>
+
+        <!-- <div class="panel panel-default col-lg-12" id="notification">
+                <h3>Hãy tìm một ai đó trong danh sách để chat với bạn!</h3>
+        </div> -->
+
+        <div id="chatarea" class=" panel-body">
+                <div class="col-lg-12 panel">
+                        <!-- <button id="btncall" class="btn"> Gọi </button> -->
+                        <button id="btncam_off" class="btn btn-success"> Kết thúc </button>
+                </div>
+
+                <div class="col-lg-12">
+                        <div class="col-lg-8">
+                                <div id='videochat'>
+                                        <!-- //video ở đây. -->
+                                </div>
+                        </div>
+                        <div class="col-lg-4" style="position: relative;float:right"> 
+                                <div class="col-lg-12" style="background-color: #f2f2f2;position:fixed;">
+                                        <div class="col-lg-4" style="height: 380px" id="chat_data"> 
+                                                <!-- du lieu chat -->
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col-lg-4" style="position: relative;float:right;top:385px"> 
+                                <div class="col-lg-12">
+                                        <div class="col-lg-11" style="padding:0px;padding-left: 5px">
+                                                 <input id="text_send" class="form-control" placeholder="nhập tin nhắn" />                                                
+                                        </div> 
+                                        <div class="col-lg-1" style="padding:0px; padding-left: 2px">
+                                                 <button id="btnsend" class="btn btn-info"> Gửi </button> 
+                                        </div>                                      
+                                 </div>
+                        </div>
+                        
+                </div>
         </div>
-        
-    </body>
-    <script src="main.js"></script>
+
+        <div id="signup" class="col-lg-12 panel">
+                <div class="form-inline  col-lg-6">
+                        <label> Tên người dùng: </label>
+                        <input type="text" id="chatname" class="form-control" placeholder="Tên sử dụng khi chat" />
+                        <button class="btn btn-success" id="btnsignup">Đăng ký</button>
+                </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal_list" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Danh sách người dùng đang online.</h4>
+                                </div>
+                                <div class="modal-body">
+                                        <ul class="list-group" id="list_ul">
+                                                <!-- <li class="list-group-item">
+                                                        <div class="checkbox">
+                                                                <label><input type="checkbox" class="userid" value="a">Nguyễn Văn A</label>
+                                                        </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                        <div class="checkbox">
+                                                                <label><input type="checkbox" class="userid" value="b">Nguyễn Văn B</label>
+                                                        </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                        <div class="checkbox">
+                                                                <label><input type="checkbox" class="userid" value="c">Nguyễn Văn C</label>
+                                                        </div>
+                                                </li> -->
+                                        </ul>
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                                        <button type="button" id="btncall" class="btn btn-success" data-dismiss="modal">Gọi</button>
+                                </div>
+                        </div>
+
+                </div>
+        </div>
+
+
+
+
+
+</body>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="notify.min.js"></script>
+<script src="main.js"></script>
+<script>
+        $("#notification").hide();
+        $("#chatarea").hide();
+        document.getElementById('btnlist').disabled = true;
+</script>
+
 </html>
