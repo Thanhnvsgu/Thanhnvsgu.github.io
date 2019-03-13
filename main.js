@@ -128,10 +128,7 @@ peer.on('open', id => {
 
     $("#btnsend").on('click',function(){
         socket.emit('data_chat', { data:document.getElementById('text_send').value,id:id });
-        $('input:text').focus(
-            function(){
-                $(this).val('');
-        });
+        document.getElementById('text_send').value = "";
     });
     socket.on('data_receive', e =>{       
         $("#chat_data").append(`<b>${e.ten}:</b> ${e.data} </br>`);
