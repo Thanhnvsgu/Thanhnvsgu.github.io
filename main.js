@@ -98,6 +98,7 @@ peer.on('open', id => {
             $("#btncam_off").on('click',function(){
                 if(stream.getVideoTracks().length>0) stream.getVideoTracks()[0].stop();
                 if(stream.getAudioTracks().length> 0 ) stream.getAudioTracks()[0].stop();
+                $(`#div_${call.peer}`).remove();
                 socket.emit('close_connect',id);
             });
          }); 
