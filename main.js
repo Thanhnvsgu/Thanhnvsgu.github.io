@@ -129,8 +129,10 @@ peer.on('open', id => {
     $("#btnsend").on('click',function(){
         socket.emit('data_chat', { data:document.getElementById('text_send').value,id:id });
     });
-    socket.on('data_receive', e =>{
+    socket.on('data_receive', e =>{       
         $("#chat_data").append(`<b>${e.ten}:</b> ${e.data} </br>`);
+        var objDiv = document.getElementById("chat_data");
+        objDiv.scrollTop = objDiv.scrollHeight;
     });
 
     // var res;
