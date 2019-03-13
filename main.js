@@ -98,7 +98,11 @@ peer.on('open', id => {
             $("#btncam_off").on('click',function(){
                 if(stream.getVideoTracks().length>0) stream.getVideoTracks()[0].stop();
                 if(stream.getAudioTracks().length> 0 ) stream.getAudioTracks()[0].stop();
-                $(`#div_${call.peer}`).remove();
+                for(var i = 0 ;i < list.length ;i++){
+                    if(list[i].value != id){
+                        $(`#div_${list[i].value}`).remove();
+                    }
+                }
                 socket.emit('close_connect',id);
             });
          }); 
@@ -133,6 +137,13 @@ peer.on('open', id => {
         socket.emit('data_chat', { data:document.getElementById('text_send').value,id:id });
         document.getElementById('text_send').value = "";
     });
+    $('#text_send').keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            socket.emit('data_chat', { data:document.getElementById('text_send').value,id:id });
+            document.getElementById('text_send').value = "";
+        }
+    });
     socket.on('data_receive', e =>{       
         $("#chat_data").append(`<b>${e.ten}:</b> ${e.data} </br>`);
         var objDiv = document.getElementById("chat_data");
@@ -142,9 +153,9 @@ peer.on('open', id => {
 });
 
 function openStream()  {
-    const config = {
-        video:true,
-        audio:true
+    const config = {        
+        audio:true,
+        video:true
     }
     return navigator.mediaDevices.getUserMedia(config);
 } 
