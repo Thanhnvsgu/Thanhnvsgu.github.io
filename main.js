@@ -1,4 +1,5 @@
-const socket = io('https://thanhetnstream.herokuapp.com/')
+const socket = io('http://localhost:5000/')
+// https://thanhetnstream.herokuapp.com/
 
 socket.on('Online_user', e =>{
     document.getElementById('online_user').innerHTML=`Số lượng người online: ${e}`;
@@ -14,9 +15,10 @@ socket.on('List_online', list =>{
 });
 
 socket.on('Turn_off', user =>{
+    // alert(user.id);
     console.log(user);
-    $(`#li_${user.id}`).remove(); 
     $(`#div_${user.id}`).remove();
+    $(`#li_${user.id}`).remove();    
     $.notify(`${user.name} đã offline`);
 });
 
@@ -31,7 +33,7 @@ peer.on('open', id => {
     $("#my-peer").append(id);
     
     $("#btnsignup").on('click',function(){
-        console.log($("#chatname").val());
+        // console.log($("#chatname").val());
         var user = {};
         user.name = $("#chatname").val();
         user.id = id;
@@ -64,7 +66,7 @@ peer.on('open', id => {
         $.notify(`${user.name} đang online`,'success');
     });
     socket.on('connect_end', e=>{
-        alert(e);
+        // alert(e);
         $(`#div_${e}`).remove();
     });
 
@@ -87,17 +89,16 @@ peer.on('open', id => {
                         call.push(peer.call(`${ten}` , stream));                       
                     }
             };
-            console.log(call.length);
-            call.forEach(t => {
-                console.log(t)  ;            
+            // console.log(call.length);
+            call.forEach(t => {          
                 t.on('stream',stream => {
                     playStream(`video_${t.peer}`,stream);
-                    alert("dang stream");
                 });
             });
             $("#btncam_off").on('click',function(){
-                stream.getVideoTracks()[0].stop();
-                stream.getAudioTracks()[0].stop();
+                if(stream.getVideoTracks().length>0) stream.getVideoTracks()[0].stop();
+                if(stream.getAudioTracks().length> 0 ) stream.getAudioTracks()[0].stop();
+                socket.emit('close_connect',id);
             });
          }); 
          
@@ -119,7 +120,7 @@ peer.on('open', id => {
                 $("#btncam_off").on('click',function(){
                     if(stream.getVideoTracks().length>0) stream.getVideoTracks()[0].stop();
                     if(stream.getAudioTracks().length> 0 ) stream.getAudioTracks()[0].stop();
-                    console.log(`div_${call.peer}`);
+                    // console.log(`div_${call.peer}`);
                     $(`#div_${call.peer}`).remove();
                     socket.emit('close_connect',id);
                 });     
@@ -136,20 +137,6 @@ peer.on('open', id => {
         var objDiv = document.getElementById("chat_data");
         objDiv.scrollTop = objDiv.scrollHeight;
     });
-
-    // var res;
-    // $("#btnuse").on('click',function(){
-    //     openStream().then(stream => {
-    //         alert('a');
-    //         playStream(`video_${id}`,stream);
-    //         $("#btnoff").on('click',function(){
-    //             stream.getTracks()[0].stop();
-    //             stream.getVideoTracks()[0].stop();
-    //         });           
-    //     });
-    // });
-    
-
  
 });
 
