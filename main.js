@@ -1,4 +1,4 @@
-const socket = io('https://thanhetn.herokuapp.com/')
+const socket = io('https://thanhetnstream.herokuapp.com/')
 
 socket.on('Online_user', e =>{
     document.getElementById('online_user').innerHTML=`Số lượng người online: ${e}`;
