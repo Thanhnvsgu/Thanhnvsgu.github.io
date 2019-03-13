@@ -1,4 +1,4 @@
-const socket = io('http://localhost:5000/')
+const socket = io('https://thanhetnstream.herokuapp.com/')
 // https://thanhetnstream.herokuapp.com/
 
 socket.on('Online_user', e =>{
